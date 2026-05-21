@@ -459,7 +459,7 @@ if __name__ == "__main__":
     EXTRA_SERVICE = (0, 5)
 
     # LEVEL 5
-    AGREEMENT = (1, 20)
+    AGREEMENT = (50, 150)
 
     # LEVEL 6
     BILL  = (50, 70)
