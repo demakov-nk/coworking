@@ -1,0 +1,159 @@
+                     
+ [                                                                 
+   {                                                               
+     "Plan": {                                                     
+       "Node Type": "Unique",                                      
+       "Parallel Aware": false,                                    
+       "Async Capable": false,                                     
+       "Startup Cost": 16.92,                                      
+       "Total Cost": 16.94,                                        
+       "Plan Rows": 1,                                             
+       "Plan Width": 33,                                           
+       "Actual Startup Time": 0.099,                               
+       "Actual Total Time": 0.103,                                 
+       "Actual Rows": 4,                                           
+       "Actual Loops": 1,                                          
+       "Plans": [                                                  
+         {                                                         
+           "Node Type": "Sort",                                    
+           "Parent Relationship": "Outer",                         
+           "Parallel Aware": false,                                
+           "Async Capable": false,                                 
+           "Startup Cost": 16.92,                                  
+           "Total Cost": 16.93,                                    
+           "Plan Rows": 1,                                         
+           "Plan Width": 33,                                       
+           "Actual Startup Time": 0.097,                           
+           "Actual Total Time": 0.098,                             
+           "Actual Rows": 4,                                       
+           "Actual Loops": 1,                                      
+           "Sort Key": ["adm.admin_id", "adm.surname", "adm.name"],
+           "Sort Method": "quicksort",                             
+           "Sort Space Used": 25,                                  
+           "Sort Space Type": "Memory",                            
+           "Plans": [                                              
+             {                                                     
+               "Node Type": "Nested Loop",                         
+               "Parent Relationship": "Outer",                     
+               "Parallel Aware": false,                            
+               "Async Capable": false,                             
+               "Join Type": "Inner",                               
+               "Startup Cost": 10.58,                              
+               "Total Cost": 16.91,                                
+               "Plan Rows": 1,                                     
+               "Plan Width": 33,                                   
+               "Actual Startup Time": 0.053,                       
+               "Actual Total Time": 0.073,                         
+               "Actual Rows": 4,                                   
+               "Actual Loops": 1,                                  
+               "Inner Unique": false,                              
+               "Plans": [                                          
+                 {                                                 
+                   "Node Type": "Hash Join",                       
+                   "Parent Relationship": "Outer",                 
+                   "Parallel Aware": false,                        
+                   "Async Capable": false,                         
+                   "Join Type": "Inner",                           
+                   "Startup Cost": 10.58,                          
+                   "Total Cost": 14.65,                            
+                   "Plan Rows": 1,                                 
+                   "Plan Width": 37,                               
+                   "Actual Startup Time": 0.047,                   
+                   "Actual Total Time": 0.059,                     
+                   "Actual Rows": 4,                               
+                   "Actual Loops": 1,                              
+                   "Inner Unique": false,                          
+                   "Hash Cond": "(adm.admin_id = agr.admin_id)",   
+                   "Plans": [                                      
+                     {                                             
+                       "Node Type": "Seq Scan",                    
+                       "Parent Relationship": "Outer",             
+                       "Parallel Aware": false,                    
+                       "Async Capable": false,                     
+                       "Relation Name": "administrator",           
+                       "Alias": "adm",                             
+                       "Startup Cost": 0.00,                       
+                       "Total Cost": 3.50,                         
+                       "Plan Rows": 150,                           
+                       "Plan Width": 33,                           
+                       "Actual Startup Time": 0.004,               
+                       "Actual Total Time": 0.009,                 
+                       "Actual Rows": 150,                         
+                       "Actual Loops": 1                           
+                     },                                            
+                     {                                             
+                       "Node Type": "Hash",                        
+                       "Parent Relationship": "Inner",             
+                       "Parallel Aware": false,                    
+                       "Async Capable": false,                     
+                       "Startup Cost": 10.57,                      
+                       "Total Cost": 10.57,                        
+                       "Plan Rows": 1,                             
+                       "Plan Width": 8,                            
+                       "Actual Startup Time": 0.035,               
+                       "Actual Total Time": 0.035,                 
+                       "Actual Rows": 4,                           
+                       "Actual Loops": 1,                          
+                       "Hash Buckets": 1024,                       
+                       "Original Hash Buckets": 1024,              
+                       "Hash Batches": 1,                          
+                       "Original Hash Batches": 1,                 
+                       "Peak Memory Usage": 9,                     
+                       "Plans": [                                  
+                         {                                         
+                           "Node Type": "Index Scan",              
+                           "Parent Relationship": "Outer",         
+                           "Parallel Aware": false,                
+                           "Async Capable": false,                 
+                           "Scan Direction": "Forward",            
+                           "Index Name": "idx_agreement_client_id",
+                           "Relation Name": "agreement",           
+                           "Alias": "agr",                         
+                           "Startup Cost": 0.30,                   
+                           "Total Cost": 10.57,                    
+                           "Plan Rows": 1,                         
+                           "Plan Width": 8,                        
+                           "Actual Startup Time": 0.021,           
+                           "Actual Total Time": 0.028,             
+                           "Actual Rows": 4,                       
+                           "Actual Loops": 1,                      
+                           "Index Cond": "(client_id = 1894)",     
+                           "Rows Removed by Index Recheck": 0,     
+                           "Filter": "(open_space_id = 80)",       
+                           "Rows Removed by Filter": 146           
+                         }                                         
+                       ]                                           
+                     }                                             
+                   ]                                               
+                 },                                                
+                 {                                                 
+                   "Node Type": "Seq Scan",                        
+                   "Parent Relationship": "Inner",                 
+                   "Parallel Aware": false,                        
+                   "Async Capable": false,                         
+                   "Relation Name": "open_space",                  
+                   "Alias": "os",                                  
+                   "Startup Cost": 0.00,                           
+                   "Total Cost": 2.25,                             
+                   "Plan Rows": 1,                                 
+                   "Plan Width": 4,                                
+                   "Actual Startup Time": 0.003,                   
+                   "Actual Total Time": 0.003,                     
+                   "Actual Rows": 1,                               
+                   "Actual Loops": 4,                              
+                   "Filter": "(open_space_id = 80)",               
+                   "Rows Removed by Filter": 99                    
+                 }                                                 
+               ]                                                   
+             }                                                     
+           ]                                                       
+         }                                                         
+       ]                                                           
+     },                                                            
+     "Planning Time": 0.553,                                       
+     "Triggers": [                                                 
+     ],                                                            
+     "Execution Time": 0.158                                       
+   }                                                               
+ ]
+

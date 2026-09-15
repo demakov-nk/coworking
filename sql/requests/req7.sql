@@ -13,4 +13,4 @@ WHERE admin_id NOT IN (
             ON sub.client_id = es.client_id
                 AND es.type_id = 5
                 AND es.purchase_date BETWEEN sub.start_date AND sub.end_date
-)
+);

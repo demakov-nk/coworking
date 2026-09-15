@@ -15,4 +15,4 @@ FROM administrator adm CROSS JOIN extra_service_type est
     LEFT JOIN agreement agr 
             ON adm.admin_id = agr.admin_id
             AND es.purchase_date = agr.conclusion_date
-GROUP BY adm.admin_id, est.type_id
+GROUP BY adm.admin_id, est.type_id;
