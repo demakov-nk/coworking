@@ -1,12 +1,11 @@
 import json
 
+from coworking.paths import STATIC_TABLES_FILE
 
-path = "static_tables.json"
 
-
-def load_static_tables(path=path):
+def load_static_tables(path=STATIC_TABLES_FILE) -> dict:
     try:
-        with open(path, "r") as file:
+        with open(path, "r", encoding="utf-8") as file:
             return json.load(file)
     except FileNotFoundError:
         print(f"ERROR: file `{path}` not found")

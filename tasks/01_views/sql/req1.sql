@@ -1,5 +1,5 @@
 /* 1. Для каждого клиента посчитать число абонементов и число визитов. */
-CREATE OR REPLACE VIEW client_subs_visits AS
+CREATE OR REPLACE VIEW client_stats_view AS
 SELECT cli.client_id,
        cli.surname,
        cli.name,

@@ -1,5 +1,15 @@
 __pycache__/
+*.py[cod]
+.pytest_cache/
 venv.sh
 .venv/
 connection_config.json
 .vscode/
+
+# артефакты сборки отчёта LaTeX
+docs/report/report.aux
+docs/report/report.log
+docs/report/report.out
+docs/report/report.toc
+docs/report/report.synctex.gz
+docs/report/drawio/.$*.bkp

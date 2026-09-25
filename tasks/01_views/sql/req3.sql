@@ -2,7 +2,7 @@
 SELECT DISTINCT agr.admin_id,
                 adm.surname,
                 adm.name
-FROM client_subs_visits csv
+FROM client_stats_view csv
     JOIN agreement agr
         ON csv.client_id = agr.client_id
     JOIN administrator adm

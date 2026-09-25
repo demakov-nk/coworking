@@ -1,4 +1,4 @@
-from connection import get_connection
+from coworking.db.connection import get_connection
 from argparse import ArgumentParser
 from tabulate import tabulate
 
@@ -38,8 +38,7 @@ def view_table(cur, table_name:str, rows:int) -> int:
     return n_records
 
 
-
-if __name__ == "__main__":
+def main() -> None:
     parser = ArgumentParser(description="Просмотр содержимого таблиц")
     parser.add_argument("--name", help="Имя таблицы")
     parser.add_argument("--rows", help="Количество строк из начала таблицы", type=int, default=10)
@@ -57,6 +56,10 @@ if __name__ == "__main__":
             total_records += view_table(cur, table_name, args.rows)
 
         print(f"\nTOTAL RECORDS: {total_records}")
+
+
+if __name__ == "__main__":
+    main()
 
 
 

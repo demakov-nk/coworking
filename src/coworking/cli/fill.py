@@ -1,12 +1,41 @@
-from connection import get_connection
-from load_static_tables import load_static_tables
-from decorators import cache_ids, cache_cs_dict, cache_ca_dict, cache_ces_dict
+from coworking.db.connection import get_connection
+from coworking.data.loader import load_static_tables
+from coworking.db.decorators import cache_ids, cache_cs_dict, cache_ca_dict, cache_ces_dict
 
 from psycopg2.extras import execute_values
 from faker import Faker
 from random import randint, uniform, choice
 from datetime import timedelta, datetime
 from time import perf_counter
+
+
+# --- объёмы генерируемых данных -------------------------------------------
+# LEVEL 1
+GENDER               = 2
+EXTRA_SERVICE_TYPE   = 10
+ROOM_TYPE            = 5
+OPEN_SPACE_ZONE_TYPE = 10
+OPEN_SPACE           = 100
+
+# LEVEL 2
+ADMINISTRATOR        = 150
+ROOM                 = 500
+OPEN_SPACE_STRUCTURE = (2, 5)
+
+# LEVEL 3
+CLIENT = 3500
+
+# LEVEL 4
+SUBSCRIPTION  = (1, 5)
+EXTRA_SERVICE = (0, 5)
+
+# LEVEL 5
+AGREEMENT = (50, 150)
+
+# LEVEL 6
+BILL  = (50, 70)
+VISIT = (1, 15)
+# ---------------------------------------------------------------------------
 
 
 def fill_table(conn, cur, table_name:str, cols:tuple, data:list[tuple]):
@@ -57,6 +86,10 @@ def rnd_cost():
 
 @cache_ids
 def get_id_list(cur, table_name:str) -> list[int]:
+    return get_id_list_not_cached(cur, table_name)
+
+
+def get_id_list_not_cached(cur, table_name:str) -> list[int]:
     id_name = ""
     if table_name.endswith("_type"):
         id_name = "type_id"
@@ -64,6 +97,8 @@ def get_id_list(cur, table_name:str) -> list[int]:
         id_name = "admin_id"
     elif table_name == "open_space_structure":
         id_name = "addition_id"
+    elif table_name == "client_stats":
+        id_name = "client_id"
     else:
         id_name = table_name + "_id"
 
@@ -437,34 +472,7 @@ def fill_visit(conn, cur, faker:Faker, n_min:int, n_max:int):
     )
 
 
-if __name__ == "__main__":
-    # LEVEL 1
-    GENDER               = 2
-    EXTRA_SERVICE_TYPE   = 10
-    ROOM_TYPE            = 5
-    OPEN_SPACE_ZONE_TYPE = 10
-    OPEN_SPACE           = 100
-
-    # LEVEL 2
-    OPEN_SPACE           = 100
-    ADMINISTRATOR        = 150
-    ROOM                 = 500
-    OPEN_SPACE_STRUCTURE = (2, 5)
-
-    # LEVEL 3
-    CLIENT = 3500
-
-    # LEVEL 4
-    SUBSCRIPTION  = (1, 5)
-    EXTRA_SERVICE = (0, 5)
-
-    # LEVEL 5
-    AGREEMENT = (50, 150)
-
-    # LEVEL 6
-    BILL  = (50, 70)
-    VISIT = (1, 15)
-
+def main() -> None:
     conn = get_connection()
     cur = conn.cursor()
     faker = Faker("ru_RU")
@@ -483,3 +491,7 @@ if __name__ == "__main__":
     print(f"Agreement: {fill_agreement(conn, cur, faker, *AGREEMENT)} sec")
     print(f"Bill: {fill_bill(conn, cur, faker, *BILL)} sec")
     print(f"Visit: {fill_visit(conn, cur, faker, *VISIT)} sec")
+
+
+if __name__ == "__main__":
+    main()
